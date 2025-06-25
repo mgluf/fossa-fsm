@@ -1,0 +1,21 @@
+{
+  "name": "fossa-fsm",
+  "version": "0.1.0",
+  "description": "Framework-agnostic finite state machine core with optional adapters.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["fsm", "state-machine", "typescript", "framework-agnostic", "svelte"],
+  "author": "Matt",
+  "license": "MIT"
+}
