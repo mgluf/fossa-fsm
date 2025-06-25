@@ -15,7 +15,16 @@
     "clean": "rm -rf dist",
     "dev": "tsc --watch"
   },
-  "keywords": ["fsm", "state-machine", "typescript", "framework-agnostic", "svelte"],
+  "keywords": [
+    "fsm",
+    "state-machine",
+    "typescript",
+    "framework-agnostic",
+    "svelte"
+  ],
   "author": "Matt",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
 }
