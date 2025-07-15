@@ -237,13 +237,3 @@ app.send('settings', { type: 'open' });         // → settings
 * `fossa.guard(...)` — precondition checks
 * `fossa.context(...)` — shared global readonly state
 * Reactive bindings for frameworks (Svelte, React)
-
----
-
-## ✅ You’re Ready
-
-This is a robust FSM model for anything from card game engines to UI routers to animation flows.
-
-You can now use `fossa-fsm@0.1.2` confidently in **Scoundrel**.
-
-Let me know if you want a typed boilerplate, unit test helpers, or HMR support next.
