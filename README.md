@@ -1,7 +1,7 @@
 # `fossa-fsm` v0.1.2
 Declarative, Structured Finite State Machines for Modern Apps
 
-<img width="800" height="533" alt="image" src="https://github.com/user-attachments/assets/7cf87590-2fb1-466d-be2f-5b57f4642ebc" />
+<img width="400" height="266.5" alt="image" src="https://github.com/user-attachments/assets/7cf87590-2fb1-466d-be2f-5b57f4642ebc" />
 
 ## Why `fossa-fsm`?
 
