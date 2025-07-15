@@ -1,13 +1,9 @@
 # `fossa-fsm` v0.1.2
 Declarative, Structured Finite State Machines for Modern Apps
 
----
-
 ## Why `fossa-fsm`?
 
 `fossa-fsm` is a compact, expressive FSM library built around **explicit architecture**, **predictable transitions**, and **real-world ergonomics**.
-
----
 
 ## 🔁 Core Concepts
 
@@ -31,8 +27,6 @@ Each child FSM is **scoped by name**. Events are routed directly:
 app.send({ type: 'boot' });                 // → root
 app.send('game', { type: 'clicked_card' }); // → child
 ```
-
----
 
 ## 🧠 Defining FSMs (Sugar Syntax)
 
@@ -62,8 +56,6 @@ Each state has an object of handlers keyed by `event.type`.
 (state, event) => newState
 ```
 
----
-
 ## 🧱 Setup API
 
 ### `fossa()`
@@ -81,8 +73,6 @@ Adds a named child FSM.
 ### `.build()`
 
 Finalizes and returns your FSM app instance.
-
----
 
 ## 📦 FSMInstance API
 
@@ -117,8 +107,6 @@ fetch('game')           // just one child
 Object of all named child FSMs
 ```
 
----
-
 ## 🌀 Lifecycle Hooks
 
 FSMs support optional lifecycle hooks:
@@ -134,8 +122,6 @@ FSMs support optional lifecycle hooks:
 
 You can define any/all of them per FSM.
 
----
-
 ## 🔄 Pure FSM Updates
 
 ```ts
@@ -150,8 +136,6 @@ Same logic as `.send(...)`, but **stateless**. Useful for:
 * Replay
 * Previews
 * Undo systems
-
----
 
 ## ✳️ Types
 
@@ -172,8 +156,6 @@ type FSMDefinition<S, E> = {
   onUnhandled?: (event: unknown, state: S) => void;
 };
 ```
-
----
 
 ## 🧪 Example: App + Game + Settings
 
@@ -219,16 +201,12 @@ app.send('game', { type: 'click_card', card }); // → game
 app.send('settings', { type: 'open' });         // → settings
 ```
 
----
-
 ## 🧠 Philosophy
 
 * **One root to rule them all** — all FSMs are traceable and orchestrated.
 * **No magic bubbling** — FSMs don’t implicitly forward or cascade.
 * **Easy to test & reason about** — pure, declarative logic.
 * **Light enough to scale from menus to full games**
-
----
 
 ## 🛠 Future Plans
 
