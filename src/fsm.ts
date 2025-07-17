@@ -8,6 +8,8 @@ export function createFSM<S extends { state: string }, E extends { type: string 
 
   const notify = () => listeners.forEach(fn => fn(state));
 
+  def.onSpawn?.(state); // New lifecycle call
+
   return {
     get state() {
       return state;
@@ -40,7 +42,17 @@ export function createFSM<S extends { state: string }, E extends { type: string 
       listeners.add(fn);
       fn(state);
       return () => listeners.delete(fn);
+    },
+    reset() {
+      state = def.initial;
+      def.onReset?.(state);
+      notify();
+    },
+    destroy() {
+      def.onDestroy?.(state);
+      listeners.clear();
     }
   };
 }
+
 

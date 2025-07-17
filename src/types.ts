@@ -8,7 +8,7 @@ export type SugarTransition<S extends { state: string }, E extends { type: strin
 
 type BaseEvent = { type: string };
 
-export type FSMDefinition<S extends { state: string }, E extends BaseEvent> = {
+export type FSMDefinition<S extends { state: string }, E extends { type: string }> = {
   initial: S;
   transitions: Record<
     S['state'],
@@ -24,14 +24,19 @@ export type FSMDefinition<S extends { state: string }, E extends BaseEvent> = {
   onSend?: (event: E, currentState: S) => void;
   onTransition?: (from: S, to: S, event: E) => void;
   onUnhandled?: (event: unknown, currentState: S) => void;
+  onDestroy?: (finalState: S) => void;
+  onReset?: (initialState: S) => void;
+  onSpawn?: (initialState: S) => void;
 };
-
 
 export type FSMInstance<S, E> = {
   state: S;
   send: (event: E) => void;
   subscribe: (listener: (state: S) => void) => () => void;
+  reset: () => void;
+  destroy: () => void;
 };
+
 
 export interface BuiltFSM<S, E> {
   send(event: E): void;

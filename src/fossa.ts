@@ -1,18 +1,17 @@
 import type { FSMDefinition, FSMInstance, BuiltFSM } from './types';
 import { createFSM } from './fsm';
 
-// Internal registry
 let rootFSM: FSMInstance<any, any> | null = null;
 const children: Record<string, FSMInstance<any, any>> = {};
+const childDefs: Record<string, FSMDefinition<any, any>> = {};
+let rootDef: FSMDefinition<any, any> | null = null;
 
 export function fossa() {
-  let definition: FSMDefinition<any, any> | null = null;
-
   return {
     root<S extends { state: string }, E extends { type: string }>(def: FSMDefinition<S, E>) {
       if (rootFSM) throw new Error('Root FSM already exists');
       rootFSM = createFSM(def);
-      definition = def;
+      rootDef = def;
       def.onInit?.(def.initial);
       return this;
     },
@@ -22,8 +21,44 @@ export function fossa() {
       if (children[name]) throw new Error(`Child FSM '${name}' already exists`);
       const fsm = createFSM(def);
       children[name] = fsm;
+      childDefs[name] = def;
       def.onInit?.(def.initial);
       return this;
+    },
+
+    spawn<S extends { state: string }, E extends { type: string }>(name: string, def: FSMDefinition<S, E>) {
+      if (children[name]) throw new Error(`FSM '${name}' already exists`);
+      const fsm = createFSM(def);
+      children[name] = fsm;
+      childDefs[name] = def;
+      def.onSpawn?.(def.initial);
+      return fsm;
+    },
+
+    reset(name?: string) {
+      if (!name) {
+        rootFSM?.reset();
+        Object.values(children).forEach(fsm => fsm.reset());
+      } else if (name === 'root') {
+        rootFSM?.reset();
+      } else {
+        children[name]?.reset();
+      }
+    },
+
+    delete(name?: string) {
+      if (!name || name === 'root') {
+        rootFSM?.destroy();
+        rootFSM = null;
+        rootDef = null;
+        Object.values(children).forEach(fsm => fsm.destroy());
+        for (const key in children) delete children[key];
+        for (const key in childDefs) delete childDefs[key];
+      } else {
+        children[name]?.destroy();
+        delete children[name];
+        delete childDefs[name];
+      }
     },
 
     build(): BuiltFSM<any, any> {
